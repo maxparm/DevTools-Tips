@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chrome Developer Tools</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+    <script
+        src="https://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Chrome Developer Tools
+
+---
+
+# Elements
+
+- Elements Panel
+    - `CMD + Shift + C` to select an element
+    - Navigate elements using keyboard arrows
+    - Move, edit `F2`, delete node
+- Console
+    - `$0` Get selected element. `$1`... `$4`
+    - `$_` Get last result
+    - `$x()` XPath
+    - `$$()` for CSS Selectors
+    - `$()` equivalent to `document.querySelector`
+- Tips
+    - Mobile view
+    - `document.body.contentEditable = 'true';` Edit like a wysiwyg.
+
+---
+
+# CSS
+
+- See CSS rules and computed properties
+- Edit the CSS
+- Activate state: `:active`, `:focus`, `:hover`, `:visited`
+- Edit pseudo classes and classes
+- Colour Picker
+- Adjust size
+    - `↑` +1
+    - `Shift + ↑` +10
+    - `Cmd + Shift + ↑` +100
+- Use history tab to check out changes on inspector stylesheet
+- [Inspect animations](https://daneden.github.io/animate.css/)
+
+---
+
+# Console
+
+```js
+console.error('This is an error!');
+console.warn('This is a warning!');
+console.assert(1 !== 1, '1 equals 1!');
+console.dir(document.body);
+console.table([{id: 1, name: "Maxime"}, {id: 2, name: "Numan"}, {id: 3, name: "Tony"}], ['name']);
+console.group('Objectives Page'); console.log('initialize'); console.groupEnd();
+console.time("Array initialize"); setTimeout(function () { console.timeEnd("Array initialize") }, 500);
+for (var i = 0; i < 100; i++) { if (i % 2) {console.count('Count'); }};
+```
+
+
+---
+
+# Source
+
+- Mini IDE: interact with loaded files
+    - Setup workspace
+- Snippets
+  - Store and run scripts in the console
+  - [Some examples](http://bgrins.github.io/devtools-snippets/#console-save)
+  - Pretty Print JS
+- Breakpoints
+  - Debug your scripts: `debugger;`
+  - Watch for expression or use scope tab.
+  - Add conditional breakpoint
+  - Step through code, avoid logging
+  - Best Practice: name anonymous function
+  - Activate Async call stack option
+  - Manage breakpoints from the panel: disable, remove
+  - Blackbox content scripts
+  - Live edit: manipulate variable in the console
+
+---
+
+# Source
+
+- More Breakpoints
+  - DOM: How an element is modified
+    - Working with tooltips/popover, set a breakpoint to block the execution.
+  - XHR
+  - Events
+- Events
+  - `monitorEvents(document.body, "click")`
+  - `getEventListeners($0)`
+  - Check events in element panel
+
+---
+
+# Network
+
+- Use snapshots to see how things are loaded
+- Filter resources by name, types... `larger-than:`, `domain:`
+- Hold `Shift` over resources to see initiator (green) and dependencies (red)
+- `DOMContentLoaded` is fired when the initial markup of a page has been parsed.
+- `load` is fired when the page has fully loaded.
+- Inspect Timing: TTFB => Time to First Byte
+- Preview resources, headers, response
+- Replay a request
+- Throttling
+- Learn more about [timing](https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing)
+
+
+---
+
+# Timeline
+
+- Memory leak: site uses progressively more and more memory
+- Garbage collection: memory is freed when js object have no references
+- Task manager
+    - Memory: native memory, DOM are stored in it.
+        - If increases, it means more DOM are created.
+    - Javascript Memory: JS Heap
+        - Live number: if it increases it means new js objects are being created.
+- Timeline
+    - Visualize Memory leak
+    - JS Heap & Node Count
+    - Heap Snapshots:
+        - Find detached nodes
+        - Yellow: directly referenced in js code
+        - Red: Part of Yellow node's tree
+    - Allocation Timeline
+        - View memory allocation by time
+    - Allocation Profiler
+        - View memory allocation by function
+
+
+---
+
+# Application
+
+- Frames: See all files loaded.
+  - Fonts, images, scripts, styles
+- Search panel in console
+- Inspect storage: cookies, localstorage, etc...
+  - Edit, delete
+- Clear storage for a specific site
+
+---
+
+# React & Redux
+
+- React
+    - `$r`
+    - Explore, filter components
+    - Edit props
+- Redux
+    - Inspect action, state, diff
+    - Get unit tests
+
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+    <script src="./presentation.js"></script>
+  </body>
+</html>
